@@ -66,6 +66,9 @@ public class Personnelcomposite  implements Ipersonnel,Serializable {
   public int getid() {
     return id;
   }
+  public void setid(int id) {
+	    this.id =id ;
+	  }
   /**
    * affichage les informations de tous les personnels du groupe. 
    */

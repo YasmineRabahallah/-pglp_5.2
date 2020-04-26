@@ -37,11 +37,19 @@ public  final class Personnel  implements Ipersonnel,Serializable {
    */
 
   private  LocalDate  dateDeNaissance;
+  /**
+   * id_groupe.
+   */
+  private int groupeId;
 
 
   public String getNom() {
     return nom;
   }
+
+  public int getgroupeId() {
+	    return groupeId;
+	  }
   
   public String getPrenom() {
     return prenom;
@@ -66,6 +74,7 @@ public  final class Personnel  implements Ipersonnel,Serializable {
     this.fonction =  builder.fonction;
     this.dateDeNaissance = builder.dateDeNaissance;
     this.telephone = builder.telephone;
+    this.groupeId = builder.groupeId ;
 
   }
 
@@ -89,8 +98,11 @@ public  final class Personnel  implements Ipersonnel,Serializable {
     /**
      * la date de naissance.
      */
-
     private LocalDate dateDeNaissance; 
+    /**
+     * id groupe.
+     */
+    private int groupeId;
     /**
      * numero de tel de la personne.
      */
@@ -108,6 +120,7 @@ public  final class Personnel  implements Ipersonnel,Serializable {
       this.nom = nom;
       this.prenom = prenom;
       this.fonction = fonction;
+
     }
     /**
      * methode pour recuperer la date.
@@ -120,6 +133,10 @@ public  final class Personnel  implements Ipersonnel,Serializable {
       this. dateDeNaissance =  dateDeNaissance;
       return this;
     }
+    public Builder groupeId ( int   groupeId) {
+        this. groupeId=  groupeId;
+        return this;
+      }
     /**
      * methode pour telephone.
      * 

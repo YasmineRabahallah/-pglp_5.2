@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Apr 26 02:00:44 CEST 2020:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546) : instance a816c00e-0171-b3c9-4405-000006de9138 
+dans le répertoire de base de données C:\Users\Hamila\workspace\exercice5.2\sarradb avec le chargeur de classe sun.misc.Launcher$AppClassLoader@6e0be858
+Chargé de file:/D:/db-derby-10.11.1.1-bin/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_91-b14
+user.dir=C:\Users\Hamila\workspace\exercice5.2
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Chargeur de classe de la base de données démarré - derby.database.classpath = ''

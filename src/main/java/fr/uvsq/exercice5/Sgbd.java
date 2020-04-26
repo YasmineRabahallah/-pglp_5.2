@@ -12,8 +12,8 @@ import java.sql.Statement;
  * @author rabahallah yasmine.
  *
  */
-public class CreateSGBD {
-	 String databaseURL = "jdbc:derby:booksdb;create=true";
+public class Sgbd {
+	 private Connection conn = null;
 	 /**
 	  * 
 	  * @param tableName nom de la table.
@@ -28,12 +28,24 @@ public class CreateSGBD {
 
 			return result.next();
 		}
+	 public Connection getConnection() {
+		  Connection conn=null;
+	    try {
+	    	Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	    try {
+	    	conn = DriverManager.getConnection("jdbc:derby:sarradb;create=true");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conn;
+	  }
 	 
 	 public void CreateTables(){
-		 
+		 conn=this.getConnection();
 		 try  {
-			 Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-			 Connection conn = DriverManager.getConnection(databaseURL)  ;
 			  Statement statement = conn.createStatement();
 			  if (!doesTableExists("personnelGroupes", conn)) {
 	            	statement.addBatch("CREATE TABLE personnelGroupes ("
@@ -51,15 +63,14 @@ public class CreateSGBD {
 	            	statement.executeBatch();
 	 
                 
-		 } catch (SQLException | ClassNotFoundException e) {
+		 } catch (SQLException  e) {
 			e.printStackTrace();
 		}
 	 
 	 }
 	public void droptables(){
+		conn=this.getConnection();
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-			 Connection conn = DriverManager.getConnection(databaseURL)  ;
 			  Statement statement = conn.createStatement();
 			 
 			  if (doesTableExists("personnels", conn)) {
@@ -70,7 +81,7 @@ public class CreateSGBD {
 				  }
 			  statement.executeBatch();
 			  
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
