@@ -69,13 +69,14 @@ public class PersonnelDaoJdbc implements Dao<Personnel> {
 	@Override
 	public Personnel update(Personnel p) {
 		conn=this.getConnection();
-		String sql = "UPDATE personnels SET  prenom=?, fonction=? WHERE nom=?";
+		String sql = "UPDATE personnels SET  prenom=?, fonction=? , id_groupe=?  WHERE nom=?";
 		 
 		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1,p.getPrenom());
 			statement.setString(2,p.getFonction());
-			statement.setString(3,p.getNom());
+			statement.setInt(3, p.getgroupeId());
+			statement.setString(4,p.getNom());
 			 
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {

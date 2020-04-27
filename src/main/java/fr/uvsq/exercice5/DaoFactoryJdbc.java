@@ -1,6 +1,6 @@
 package fr.uvsq.exercice5;
 
-public class DaoFactorySgbd  implements AbstractFactoryDao{
+public class DaoFactoryJdbc  implements AbstractFactoryDao{
 	public Dao<Personnel> CreatePersonnelDao() {
 		return new PersonnelDaoJdbc();
 	}

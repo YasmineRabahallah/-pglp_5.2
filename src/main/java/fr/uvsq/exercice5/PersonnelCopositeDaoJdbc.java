@@ -11,16 +11,16 @@ public class PersonnelCopositeDaoJdbc implements Dao<Personnelcomposite> {
     private Connection conn=null;
 	@Override
 	public Personnelcomposite create(Personnelcomposite obj) {
+		int rowsInserted =0;
 		conn=this.getConnection();
-		String sql = "INSERT INTO personnelGroupes (id_groupe) VALUES (?)";
+		String sql = "INSERT INTO personnelGroupes (id_groupe,nom_groupe) VALUES (?,?)";
 		 
 		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1,obj.getid()); 
-			int rowsInserted = statement.executeUpdate();
-			if (rowsInserted > 0) {
-			    System.out.println("A new group was inserted successfully!");
-			}
+			statement.setString(2,obj.getNom_groupe()); 
+		 rowsInserted = statement.executeUpdate();
+			
 			List<Ipersonnel> l = obj.getPersonnes();
 			int verifie = 0;
 		      while (verifie < l.size()) {
@@ -34,26 +34,47 @@ public class PersonnelCopositeDaoJdbc implements Dao<Personnelcomposite> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	    
-		return obj;
+		if (rowsInserted > 0) {
+		    System.out.println("A new group was inserted successfully!");
+		    return obj;
+		} else {
+			 return null ;	
+		}
+	   
+		
 	}
 
 	@Override
-	public Personnelcomposite retrieve(String s) {
-		Personnelcomposite p = null ;
+	public Personnelcomposite retrieve(String id) {
+		int id_g =  Integer.parseInt(id);
+		Personnelcomposite pc = null ;
+		Personnel p = null ;
         conn=this.getConnection();
 		String sql = "select * from personnelGroupes where id_groupe = (?)";
 		 try {
-		
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, s);
+			statement.setInt(1, id_g);
 			statement.execute();
-		      ResultSet result = statement.getResultSet();
-			
-
+		    ResultSet result = statement.getResultSet();
 			if (result.next()){
 			    int id_groupe = result.getInt("id_groupe");
-			    p = new Personnelcomposite(id_groupe);
+			    String nom_groupe = result.getString("nom_groupe");
+			    pc = new Personnelcomposite(id_groupe,nom_groupe);
+			 
+			    String sql_p =  "SELECT * FROM personnels where  id_groupe = (?)";
+			    PreparedStatement statement_p = conn.prepareStatement(sql_p);
+				statement_p.setInt(1,pc.getid());
+				statement_p.execute();
+			      ResultSet result_p = statement_p.getResultSet();
+
+				while(result_p.next()){
+				    String nom = result_p.getString("nom");
+				    String prenom= result_p.getString("prenom");
+				    String fonction = result_p.getString("fonction");
+				    int groupeId = result_p.getInt("id_groupe");
+				    p = new Personnel.Builder(nom,prenom,fonction).groupeId(groupeId).build();
+				    pc.add(p);
+			    }
 			}
 			statement.close();
 			conn.close();
@@ -61,17 +82,18 @@ public class PersonnelCopositeDaoJdbc implements Dao<Personnelcomposite> {
 			e.printStackTrace();
 		}
 		
-		return p;
+		return pc;
 	}
 
 	@Override
 	public Personnelcomposite update(Personnelcomposite p) {
 		conn=this.getConnection();
-		String sql = "UPDATE personnelGroupes SET  id_groupe=?";
+		String sql = "UPDATE personnelGroupes SET nom_groupe=(?) where  id_groupe= (?)";
 		 
 		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1,p.getid());
+			statement.setString(1,p.getNom_groupe());
+			statement.setInt(2,p.getid());
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
 			    System.out.println("An existing group was updated successfully!");

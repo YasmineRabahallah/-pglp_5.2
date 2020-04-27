@@ -49,7 +49,8 @@ public class Sgbd {
 			  Statement statement = conn.createStatement();
 			  if (!doesTableExists("personnelGroupes", conn)) {
 	            	statement.addBatch("CREATE TABLE personnelGroupes ("
-	    					+ "id_groupe Integer  PRIMARY KEY NOT NULL"
+	    					+ "id_groupe Integer  PRIMARY KEY NOT NULL , "
+	            			+ " nom_groupe varchar(40) NOT NULL "
 	    					+ ")");
 			  }
 			  if (!doesTableExists("personnels", conn)) {

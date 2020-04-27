@@ -24,16 +24,31 @@ public class Personnelcomposite  implements Ipersonnel,Serializable {
 
   private int id;
   /**
-   * constructeur de personnel_composite.
-   * 
-   * @param id de groupe. 
+   * nom du groupe
    */
+  String nom_groupe;
+  
+ /**
+  *  constructeur de personnel_composite.
+  * 
+  * @param id du groupe
+  * @param nom_groupe
+  */
 
-  public Personnelcomposite(int id) {
+  public Personnelcomposite(int id , String nom_groupe) {
     this.id = id;
+    this.nom_groupe= nom_groupe;
     personnes = new ArrayList<Ipersonnel>();
   }
   /**
+   * methode pour retourner le nom du groupe.
+   * 
+   * @return nom du groupe.
+   */
+  public String getNom_groupe() {
+	return nom_groupe;
+}
+/**
    * ajouter un personnel.
    *
    * @param personnel personnel a ajouter.
