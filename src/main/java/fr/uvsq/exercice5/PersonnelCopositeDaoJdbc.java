@@ -11,15 +11,16 @@ public class PersonnelCopositeDaoJdbc implements Dao<Personnelcomposite> {
     private Connection conn=null;
 	@Override
 	public Personnelcomposite create(Personnelcomposite obj) {
+		PreparedStatement statement =null ;
 		int rowsInserted =0;
 		conn=this.getConnection();
 		String sql = "INSERT INTO personnelGroupes (id_groupe,nom_groupe) VALUES (?,?)";
 		 
 		try {
-			PreparedStatement statement = conn.prepareStatement(sql);
+			 statement = conn.prepareStatement(sql);
 			statement.setInt(1,obj.getid()); 
 			statement.setString(2,obj.getNom_groupe()); 
-		 rowsInserted = statement.executeUpdate();
+		   rowsInserted = statement.executeUpdate();
 			
 			List<Ipersonnel> l = obj.getPersonnes();
 			int verifie = 0;
@@ -29,11 +30,17 @@ public class PersonnelCopositeDaoJdbc implements Dao<Personnelcomposite> {
 		        }
 		        verifie++;
 		      }
-		      statement.close();
 		      conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		try{
+		if (statement != null) {
+			statement.close();
+	      }
+	    } catch (SQLException e1) {
+	      e1.printStackTrace();
+	    }
 		if (rowsInserted > 0) {
 		    System.out.println("A new group was inserted successfully!");
 		    return obj;
@@ -46,13 +53,15 @@ public class PersonnelCopositeDaoJdbc implements Dao<Personnelcomposite> {
 
 	@Override
 	public Personnelcomposite retrieve(String id) {
+		PreparedStatement statement =null ;
+		PreparedStatement statement_p = null;
 		int id_g =  Integer.parseInt(id);
 		Personnelcomposite pc = null ;
 		Personnel p = null ;
         conn=this.getConnection();
 		String sql = "select * from personnelGroupes where id_groupe = (?)";
 		 try {
-			PreparedStatement statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sql);
 			statement.setInt(1, id_g);
 			statement.execute();
 		    ResultSet result = statement.getResultSet();
@@ -62,7 +71,7 @@ public class PersonnelCopositeDaoJdbc implements Dao<Personnelcomposite> {
 			    pc = new Personnelcomposite(id_groupe,nom_groupe);
 			 
 			    String sql_p =  "SELECT * FROM personnels where  id_groupe = (?)";
-			    PreparedStatement statement_p = conn.prepareStatement(sql_p);
+			     statement_p = conn.prepareStatement(sql_p);
 				statement_p.setInt(1,pc.getid());
 				statement_p.execute();
 			      ResultSet result_p = statement_p.getResultSet();
@@ -76,55 +85,80 @@ public class PersonnelCopositeDaoJdbc implements Dao<Personnelcomposite> {
 				    pc.add(p);
 			    }
 			}
-			statement.close();
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		 try{
+				if (statement != null) {
+					statement.close();
+			      }
+			    } catch (SQLException e1) {
+			      e1.printStackTrace();
+			    }
+		 try{
+				if (statement_p != null) {
+					statement_p.close();
+			      }
+			    } catch (SQLException e1) {
+			      e1.printStackTrace();
+			    }
 		return pc;
 	}
 
 	@Override
 	public Personnelcomposite update(Personnelcomposite p) {
+		PreparedStatement statement =null ;
 		conn=this.getConnection();
 		String sql = "UPDATE personnelGroupes SET nom_groupe=(?) where  id_groupe= (?)";
 		 
 		try {
-			PreparedStatement statement = conn.prepareStatement(sql);
+			 statement = conn.prepareStatement(sql);
 			statement.setString(1,p.getNom_groupe());
 			statement.setInt(2,p.getid());
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
 			    System.out.println("An existing group was updated successfully!");
 			}
-			conn.close();
 			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		try{
+			if (statement != null) {
+				statement.close();
+		      }
+		    } catch (SQLException e1) {
+		      e1.printStackTrace();
+		    }
 		
 		return p;
 	}
 
 	@Override
 	public void delete(Personnelcomposite p) {
+		PreparedStatement statement =null ;
 		conn=this.getConnection();
 		String sql = "Delete from personnelGroupes where  id_groupe=?";
 		 
 		try {
-			PreparedStatement statement = conn.prepareStatement(sql);
+			 statement = conn.prepareStatement(sql);
 			statement.setInt(1,p.getid());
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
 			    System.out.println("A group was deleted successfully!!");
 			}
-			statement.close();
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		try{
+			if (statement != null) {
+				statement.close();
+		      }
+		    } catch (SQLException e1) {
+		      e1.printStackTrace();
+		    }
 		
 	}
 	public Connection getConnection() {

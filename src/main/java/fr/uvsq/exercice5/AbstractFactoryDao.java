@@ -7,7 +7,7 @@ package fr.uvsq.exercice5;
  */
 
 public interface AbstractFactoryDao {
-  Dao<Personnel> CreatePersonnelDao();
-  Dao<Personnelcomposite> CreatePersonnelcompositeDao();
+  Dao<Personnel> createPersonnelDao();
+  Dao<Personnelcomposite> createPersonnelcompositeDao();
 
 }

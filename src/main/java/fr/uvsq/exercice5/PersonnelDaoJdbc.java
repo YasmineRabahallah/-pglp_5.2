@@ -8,41 +8,55 @@ import java.sql.SQLException;
 
 
 public class PersonnelDaoJdbc implements Dao<Personnel> {
+	
 	 private Connection conn = null;
 	@Override
 	public Personnel create(Personnel p) {
+		PreparedStatement statement= null ;
+		int rowsInserted =0 ;
 		conn=this.getConnection();
 		String sql = "INSERT INTO personnels (nom, prenom, fonction, id_groupe) VALUES (?, ?, ?, ?)";
 		 
 		try {
-			PreparedStatement statement = conn.prepareStatement(sql);
+		    statement = conn.prepareStatement(sql);
 			statement.setString(1, p.getNom());
 			statement.setString(2, p.getPrenom());
 			statement.setString(3, p.getFonction());
 			statement.setInt(4, p.getgroupeId());
 			 
-			int rowsInserted = statement.executeUpdate();
-			if (rowsInserted > 0) {
-			    System.out.println("A new personnel was inserted successfully!");
-			}
+			rowsInserted = statement.executeUpdate();
+			
 			conn.close();
-			statement.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		try{
+			if (statement != null) {
+				statement.close();
+		      }
+		    } catch (SQLException e1) {
+		      e1.printStackTrace();
+		    }
+		if (rowsInserted > 0) {
+		    System.out.println("A new group was inserted successfully!");
+		    return p ;
+		} else {
+			 return null ;	
+		}
 	
 	
-	return p;
 	}
 
 	@Override
 	public Personnel retrieve(String s) {
+		PreparedStatement statement= null ;
 	Personnel p = null ;
 	        conn=this.getConnection();
 			String sql = "SELECT * FROM personnels where nom = (?)";
 			 try {
 				 
-				PreparedStatement statement = conn.prepareStatement(sql);
+				statement = conn.prepareStatement(sql);
 				statement.setString(1, s);
 				statement.execute();
 			      ResultSet result = statement.getResultSet();
@@ -55,10 +69,17 @@ public class PersonnelDaoJdbc implements Dao<Personnel> {
 				    p = new Personnel.Builder(nom,prenom,fonction).groupeId(groupeId).build();
 				}
 				conn.close();
-				statement.close();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			 try{
+					if (statement != null) {
+						statement.close();
+				      }
+				    } catch (SQLException e1) {
+				      e1.printStackTrace();
+				    }
 			
 		
 		
@@ -68,11 +89,12 @@ public class PersonnelDaoJdbc implements Dao<Personnel> {
 
 	@Override
 	public Personnel update(Personnel p) {
+		PreparedStatement statement= null ;
 		conn=this.getConnection();
 		String sql = "UPDATE personnels SET  prenom=?, fonction=? , id_groupe=?  WHERE nom=?";
 		 
 		try {
-			PreparedStatement statement = conn.prepareStatement(sql);
+			 statement = conn.prepareStatement(sql);
 			statement.setString(1,p.getPrenom());
 			statement.setString(2,p.getFonction());
 			statement.setInt(3, p.getgroupeId());
@@ -83,10 +105,17 @@ public class PersonnelDaoJdbc implements Dao<Personnel> {
 			    System.out.println("An existing personnel was updated successfully!");
 			}
 			conn.close();
-			statement.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		try{
+			if (statement != null) {
+				statement.close();
+		      }
+		    } catch (SQLException e1) {
+		      e1.printStackTrace();
+		    }
 		
 		
 		return p;
@@ -94,12 +123,13 @@ public class PersonnelDaoJdbc implements Dao<Personnel> {
 
 	@Override
 	public void delete(Personnel p) {
+		PreparedStatement statement= null ;
 		    conn=this.getConnection();
 			String sql = "DELETE FROM personnels WHERE nom=?";
 			 
 			
 			try {
-				PreparedStatement statement = conn.prepareStatement(sql);
+				 statement = conn.prepareStatement(sql);
 				statement.setString(1, p.getNom());
 				int rowsDeleted = statement.executeUpdate();
 				if (rowsDeleted > 0) {
@@ -108,10 +138,17 @@ public class PersonnelDaoJdbc implements Dao<Personnel> {
 					 System.out.println("element does not exist");
 				}
 				conn.close();
-				statement.close();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			try{
+				if (statement != null) {
+					statement.close();
+			      }
+			    } catch (SQLException e1) {
+			      e1.printStackTrace();
+			    }
 	}
 	
 	

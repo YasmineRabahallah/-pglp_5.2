@@ -14,7 +14,7 @@ public class ExempleTest {
 		File f = new File("rabahallah");
 		f.delete();
 		DaoFactorySerl df= new  DaoFactorySerl();
-		Dao<Personnel> dao1 = df.CreatePersonnelDao() ;
+		Dao<Personnel> dao1 = df.createPersonnelDao() ;
 		Personnel p1 = new Personnel.Builder("rabahallah", "yasmine","chargé de mission").build();
 		assertFalse(f.exists());
 		dao1.create(p1);

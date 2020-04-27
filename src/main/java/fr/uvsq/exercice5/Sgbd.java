@@ -43,10 +43,11 @@ public class Sgbd {
 		return conn;
 	  }
 	 
-	 public void CreateTables(){
+	 public void createTables(){
+		 Statement statement = null ;
 		 conn=this.getConnection();
 		 try  {
-			  Statement statement = conn.createStatement();
+			   statement = conn.createStatement();
 			  if (!doesTableExists("personnelGroupes", conn)) {
 	            	statement.addBatch("CREATE TABLE personnelGroupes ("
 	    					+ "id_groupe Integer  PRIMARY KEY NOT NULL , "
@@ -63,16 +64,24 @@ public class Sgbd {
 			  }
 	            	statement.executeBatch();
 	 
-                
+           conn.close() ;    
 		 } catch (SQLException  e) {
 			e.printStackTrace();
 		}
-	 
+		 
+		 try{
+				if (statement != null) {
+					statement.close();
+			      }
+			    } catch (SQLException e1) {
+			      e1.printStackTrace();
+			    }
 	 }
 	public void droptables(){
+		Statement statement = null ;
 		conn=this.getConnection();
 		try {
-			  Statement statement = conn.createStatement();
+			   statement = conn.createStatement();
 			 
 			  if (doesTableExists("personnels", conn)) {
 		           	statement.addBatch("drop TABLE personnels ");
@@ -81,10 +90,18 @@ public class Sgbd {
 		           	statement.addBatch("drop TABLE personnelGroupes ");
 				  }
 			  statement.executeBatch();
-			  
+			  conn.close(); 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		try{
+			if (statement != null) {
+				statement.close();
+		      }
+		    } catch (SQLException e1) {
+		      e1.printStackTrace();
+		    }
 		
 		
 	}

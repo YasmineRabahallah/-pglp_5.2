@@ -15,13 +15,13 @@ import org.junit.Test;
 public class PersonnelcompositeSgbdTest {
 	Sgbd sgbd = new  Sgbd();
 	DaoFactoryJdbc dfs= new  DaoFactoryJdbc();
-	Dao<Personnelcomposite> dao1 = dfs.CreatePersonnelcompositeDao();
-	Dao<Personnel> dao2 = dfs.CreatePersonnelDao();
+	Dao<Personnelcomposite> dao1 = dfs.createPersonnelcompositeDao();
+	Dao<Personnel> dao2 = dfs.createPersonnelDao();
 	
 	@Test
 	public void createtest(){
 		sgbd.droptables();
-		sgbd.CreateTables();
+		sgbd.createTables();
 		
 		
 		Personnelcomposite g1 = new Personnelcomposite(1,"groupe1");

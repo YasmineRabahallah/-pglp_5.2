@@ -9,13 +9,13 @@ import org.junit.Test;
 public class PersonnelSgbdTest {
 	Sgbd sgbd = new  Sgbd();
 	DaoFactoryJdbc dfs= new  DaoFactoryJdbc();
-	Dao<Personnel> dao2 = dfs.CreatePersonnelDao();
-	Dao<Personnelcomposite> dao1 = dfs.CreatePersonnelcompositeDao();
+	Dao<Personnel> dao2 = dfs.createPersonnelDao();
+	Dao<Personnelcomposite> dao1 = dfs.createPersonnelcompositeDao();
 	@Test
 	public void createtest(){
 		
 		sgbd.droptables();
-		sgbd.CreateTables();
+		sgbd.createTables();
 		Personnelcomposite g1 = new Personnelcomposite(1,"groupe1");
 		assertNotNull(dao1.create(g1));
 		Personnelcomposite g4 = new Personnelcomposite(4,"groupe4");

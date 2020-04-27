@@ -8,7 +8,7 @@ public class TestSGBD {
 	@Test
 	public void test(){
 		 Sgbd bdd = new  Sgbd();
-		 bdd.CreateTables();
+		 bdd.createTables();
 		 bdd.droptables();
 		
 
