@@ -48,9 +48,9 @@ public  final class Personnel  implements Ipersonnel,Serializable {
   }
 
   public int getgroupeId() {
-	    return groupeId;
-	  }
-  
+    return groupeId;
+  }
+
   public String getPrenom() {
     return prenom;
   }
@@ -74,7 +74,7 @@ public  final class Personnel  implements Ipersonnel,Serializable {
     this.fonction =  builder.fonction;
     this.dateDeNaissance = builder.dateDeNaissance;
     this.telephone = builder.telephone;
-    this.groupeId = builder.groupeId ;
+    this.groupeId = builder.groupeId;
 
   }
 
@@ -133,10 +133,11 @@ public  final class Personnel  implements Ipersonnel,Serializable {
       this. dateDeNaissance =  dateDeNaissance;
       return this;
     }
-    public Builder groupeId ( int   groupeId) {
-        this. groupeId=  groupeId;
-        return this;
-      }
+    
+    public Builder groupeId(int groupeId) {
+      this. groupeId = groupeId;
+      return this;
+    }
     /**
      * methode pour telephone.
      * 

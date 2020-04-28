@@ -1,14 +1,20 @@
 package fr.uvsq.exercice5;
 
-public class DaoFactorySerl implements AbstractFactoryDao{
+/** 
+ * class DaoFactorySerl.
+ * 
+ * @author rabahallah yasmine.
+ *
+ */
 
-	public Dao<Personnel> createPersonnelDao() {
-		return new PersonnelDao();
-	}
+public class DaoFactorySerl implements AbstractFactoryDao {
 
-	public Dao<Personnelcomposite> createPersonnelcompositeDao() {
-		return new PersonnelcompositeDao();
-	}
+  public Dao<Personnel> createPersonnelDao() {
+    return new PersonnelDao();
+  }
 
+  public Dao<Personnelcomposite> createPersonnelcompositeDao() {
+    return new PersonnelcompositeDao();
+  }
 
 }

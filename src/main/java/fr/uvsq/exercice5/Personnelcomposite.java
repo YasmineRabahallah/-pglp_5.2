@@ -24,20 +24,20 @@ public class Personnelcomposite  implements Ipersonnel,Serializable {
 
   private int id;
   /**
-   * nom du groupe
+   * nom du groupe.
    */
-  String nom_groupe;
+  String nomgroupe;
   
- /**
-  *  constructeur de personnel_composite.
-  * 
-  * @param id du groupe
-  * @param nom_groupe
-  */
+  /**
+   *  constructeur de personnel_composite.
+   * 
+   * @param id du groupe.
+   * @param nomgroupe nom du groupe.
+   */
 
-  public Personnelcomposite(int id , String nom_groupe) {
+  public Personnelcomposite(int id,String nomgroupe) {
     this.id = id;
-    this.nom_groupe= nom_groupe;
+    this.nomgroupe = nomgroupe;
     personnes = new ArrayList<Ipersonnel>();
   }
   /**
@@ -45,10 +45,12 @@ public class Personnelcomposite  implements Ipersonnel,Serializable {
    * 
    * @return nom du groupe.
    */
+
   public String getNom_groupe() {
-	return nom_groupe;
-}
-/**
+    return nomgroupe;
+  }
+
+  /**
    * ajouter un personnel.
    *
    * @param personnel personnel a ajouter.
@@ -81,9 +83,10 @@ public class Personnelcomposite  implements Ipersonnel,Serializable {
   public int getid() {
     return id;
   }
+
   public void setid(int id) {
-	    this.id =id ;
-	  }
+    this.id = id;
+  }
   /**
    * affichage les informations de tous les personnels du groupe. 
    */
