@@ -43,7 +43,7 @@ public class Sgbd {
       e.printStackTrace();
     }
     try {
-      conn = DriverManager.getConnection("jdbc:derby:sarradb;create=true");
+      conn = DriverManager.getConnection("jdbc:derby:6;create=true");
     } catch (SQLException e) {
       e.printStackTrace();
     }

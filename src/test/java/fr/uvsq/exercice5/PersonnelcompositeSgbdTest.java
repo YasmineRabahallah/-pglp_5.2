@@ -17,7 +17,11 @@ public class PersonnelcompositeSgbdTest {
 	DaoFactoryJdbc dfs= new  DaoFactoryJdbc();
 	Dao<Personnelcomposite> dao1 = dfs.createPersonnelcompositeDao();
 	Dao<Personnel> dao2 = dfs.createPersonnelDao();
-	
+	@Before
+	public void deleteTable() {
+		sgbd.droptables();
+		sgbd.createTables();
+	}
 	@Test
 	public void createtest(){
 		sgbd.droptables();
